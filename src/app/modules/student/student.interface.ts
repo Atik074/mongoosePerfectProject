@@ -21,6 +21,7 @@ export type Student = {
     bloodGroup?: 'A+'| 'A-'|'B+'|'B-'|'AB+'|'AB-'|'O+'|'O-',
     permanentAddress: string ,
     mailingAddress:string,
+    email:string ,
     contactNumber:string,
     emmergencyContactNumber:string,
     guardian: Guardian,

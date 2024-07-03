@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { StudentServices } from "./student.service";
+import studentValidateSchema from "./student.JoiValidation";
 
 
 
@@ -9,7 +10,22 @@ const createStudent =async(req:Request,res:Response)=>{
         
     const {student:studentData} = req.body
 
-    const result = await StudentServices.createStudentIntoDB(studentData)
+    // joi validate 
+   const{error} =studentValidateSchema.validate(studentData)
+   //send into database
+   const result = await StudentServices.createStudentIntoDB(studentData)
+
+
+   
+   if(error){
+    res.status(500).json({
+      status:'false',
+      message:'something is wrong',
+      error:error.details
+})
+   }
+
+
 
     res.status(200).json({
         status:'success',
@@ -46,6 +62,8 @@ const createStudent =async(req:Request,res:Response)=>{
    const getSingleStudent = async(req:Request ,res:Response)=>{
       
     try{
+
+
 
       const {studentId} = req.params
 

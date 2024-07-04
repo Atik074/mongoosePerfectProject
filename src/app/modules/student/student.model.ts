@@ -1,6 +1,9 @@
 import { Schema, model } from 'mongoose';
-import { Guardian, Student, UserName  } from './student.interface';
+import { Guardian, Student, StudentStaticModel, UserName  } from './student.interface';
 import validator from 'validator';
+import bcrypt from 'bcrypt'
+import config from '../../config';
+
 
 const UserNameSchema = new Schema<UserName>({
     firstName:{type:String , required:true,
@@ -32,8 +35,9 @@ const GuardianSchema = new  Schema<Guardian>({
 })
 
 
-export const studentSchema = new Schema<Student>({
-    id:{type:String ,required:[true , 'id is required']} ,
+export const studentSchema = new Schema<Student , StudentStaticModel>({
+    id:{type:String ,required:[true , 'id is required'],unique:true} ,
+    password:{type:String ,required:[true , 'password is required'],unique:true ,  maxlength:[20 , 'password is not big than 20 letters']} ,
     name:{
         type:UserNameSchema ,
         required:[true , 'name is required'] ,
@@ -69,8 +73,70 @@ export const studentSchema = new Schema<Student>({
         type:String ,
         enum:['active' ,'blocked'] ,
         default:'active'
-     }
-})
+     } ,
+     isDeleted:{
+         type:Boolean,
+         default:false
+        
+      }
+      
+} 
+ 
+)
 
 
-  export const StudentModel = model<Student>('Student' , studentSchema)
+
+//middleware pre and post 
+ studentSchema.pre('save' , async function(next){
+
+   this.password = await bcrypt.hash(this.password, Number(config.bcrypt_salt_round) )
+
+  next() ;
+
+}) 
+
+ studentSchema.post('save' , function(doc ,next){
+    doc.password = " "
+    next()
+ })
+
+/// query midle ware 
+
+ studentSchema.pre('find', function(next){
+
+    this.find({isDelete:{$ne:true}})
+     next()
+     
+ })
+
+ studentSchema.pre('findOne', function(next){
+
+    this.find({isDelete:{$ne:true}})
+     next()
+
+ })
+/// usigng aggregate to delete successfully
+ studentSchema.pre('aggregate', function(next){
+
+    this.pipeline().unshift({$match:{isDeleted:{$ne:true}}})
+    
+     next()
+
+ })
+
+
+/// custome instance method 
+//  studentSchema.methods.isUserExits =  async function(id:string){
+//     const existingUser = StudentModel.findOne({id}) 
+//     return existingUser ;
+
+// }
+
+// statice method in mongoose 
+ studentSchema.statics.isUserExistOnDB = async function(id:string){
+    const existingUser = await StudentModel.findOne({id})
+
+    return existingUser ;
+ }
+
+  export const StudentModel = model<Student , StudentStaticModel>('Student' , studentSchema)

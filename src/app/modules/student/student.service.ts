@@ -1,23 +1,7 @@
-import { Student } from "./student.interface";
+
 import { StudentModel } from "./student.model";
 
 
- const createStudentIntoDB = async(studentData:Student)=>{
-  //  const result =  await StudentModel.create(student)
-  //  return result ; // builtin Static method in mongodb
- 
-  const student = new StudentModel(studentData)
-    if(await StudentModel.isUserExistOnDB(studentData.id)){
-      throw new Error('user already exist on database')
-    }
-  // //custom instance 
-  // if(await student.isUserExits(studentData.id)){
-  //   throw new Error("user already exists")
-  // }
-
-   const result = await student.save()
-     return result ; // builtin instance method
-}
 
  const getAllStudentsFromDB =async()=>{
    
@@ -43,7 +27,6 @@ import { StudentModel } from "./student.model";
  }
 
 export const StudentServices ={
-    createStudentIntoDB,
     getAllStudentsFromDB,
     getSingleStudentFromDB ,
     deleteStudentfromDB 

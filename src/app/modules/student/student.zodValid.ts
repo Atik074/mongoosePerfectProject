@@ -34,7 +34,6 @@ const studentZodValidateSchema = z.object({
     emmergencyContactNumber: z.string().min(1).min(1),
     guardian:GuardianValidateSchema,
     profileImg: z.string().min(1),
-    isActive: z.enum(['active', 'blocked']).default('active'),
     isDeleted: z.boolean().default(true)
 });
 

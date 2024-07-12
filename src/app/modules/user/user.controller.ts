@@ -1,13 +1,12 @@
-import { NextFunction, Request, Response } from "express";
+
 import { UserServices } from "./user.service";
 import sendResponse from "../../utils/sendResponse";
 import httpStatus from "http-status";
+import { catchAsynce } from "../../utils/catchAsynce";
 
 
-const createStudent =async(req:Request,res:Response,next:NextFunction)=>{
+const createStudent = catchAsynce(async(req,res,next)=>{
    
-      try{
-
         const {password , student:studentData} = req.body
        const result = await UserServices.createStudentIntoDB(password , studentData)
 
@@ -18,11 +17,9 @@ const createStudent =async(req:Request,res:Response,next:NextFunction)=>{
           data:result 
         })
 
-    
-        }catch(err){
-           next(err)
-        }
-     }
+     })
+
+
 
 
      export const UserControllers = {

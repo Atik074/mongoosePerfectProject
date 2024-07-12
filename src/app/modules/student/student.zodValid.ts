@@ -20,7 +20,7 @@ const GuardianValidateSchema = z.object({
     motherName: z.string().min(1),
 });
 
-const studentZodValidateSchema = z.object({
+const studentZodValidationSchema = z.object({
     id: z.string().min(1),
     password:z.string().max(20),
     name: UserNameValidateSchema,
@@ -37,4 +37,6 @@ const studentZodValidateSchema = z.object({
     isDeleted: z.boolean().default(true)
 });
 
-export default studentZodValidateSchema;
+export const studentValidations ={
+     studentZodValidationSchema
+} 

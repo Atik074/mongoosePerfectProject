@@ -14,7 +14,6 @@ export type UserName = {
 };
 
 export type TStudent = {
-  id: string;
   user: Types.ObjectId
   name: UserName;
   gender: 'male' | 'female';
@@ -27,18 +26,10 @@ export type TStudent = {
   emmergencyContactNumber: string;
   guardian: Guardian;
   profileImg?: string;
-  isDeleted: boolean;
+  
 };
 
-// create custom instance method
 
-// export  type StudentMethod = {
-//     isUserExits(id:string) : Promise<Student | null>
-// }
-
-// export type StudentInstanceModel = Model<Student , Record<string , never> , StudentMethod>
-
-/// static method in mongoose
 
 export interface StudentStaticModel extends Model<TStudent> {
   isUserExistOnDB(id: string): Promise<TStudent | null>;

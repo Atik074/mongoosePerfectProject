@@ -39,7 +39,6 @@ const GuardianSchema = new Schema<Guardian>({
 });
 
 export const studentSchema = new Schema<TStudent, StudentStaticModel>({
-  id: { type: String, required: [true, 'id is required'], unique: true },
   user:{
     type:Schema.Types.ObjectId ,
     required:[true , 'User id is required'],
@@ -77,10 +76,7 @@ export const studentSchema = new Schema<TStudent, StudentStaticModel>({
   emmergencyContactNumber: { type: String },
   guardian: GuardianSchema,
   profileImg: { type: String, required: true },
-  isDeleted: {
-    type: Boolean,
-    default: false,
-  },
+ 
 });
 
 

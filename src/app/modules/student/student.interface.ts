@@ -26,6 +26,7 @@ export type TStudent = {
   emmergencyContactNumber: string;
   guardian: Guardian;
   profileImg?: string;
+  admissionSemester:Types.ObjectId
   
 };
 

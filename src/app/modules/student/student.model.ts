@@ -76,6 +76,10 @@ export const studentSchema = new Schema<TStudent, StudentStaticModel>({
   emmergencyContactNumber: { type: String },
   guardian: GuardianSchema,
   profileImg: { type: String, required: true },
+  admissionSemester:{
+    type:Schema.Types.ObjectId,
+    ref:'accademicSemester'
+  }
  
 });
 

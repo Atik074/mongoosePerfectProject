@@ -46,6 +46,7 @@ const createStudentValidationSchema = z.object({
       emmergencyContactNumber: z.string().min(1).min(1),
       guardian: GuardianValidateSchema,
       profileImg: z.string().min(1),
+      admissionSemester:z.string()
     }),
   }),
 });

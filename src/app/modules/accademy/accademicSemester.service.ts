@@ -19,8 +19,35 @@ const createAccademicSemesterIntoDB =async(payload:TAccademicSemester)=>{
 
 }
 
+const getAccademicSemesterFromDB = async()=>{
+    const result = await AccademicSemester.find()
+    return result ;
+}
+
+const getSingleSemesterFromDB = async(semesterId:string)=>{
+
+    const result = await AccademicSemester.findOne({_id:semesterId})
+    return result ;
+
+}
+
+const updateAccademicSemesterFromDB = async(semesterId:string , updateField:any)=>{
+
+    
+    const result = await AccademicSemester.updateMany({_id:semesterId},{
+        year:updateField.year,
+        startMonth:updateField.startMonth,
+        endMonth:updateField.endMonth,
+    })
+
+    return result ;
+}
+
 
 export const AccademicSemesterServices= {
- createAccademicSemesterIntoDB
+ createAccademicSemesterIntoDB ,
+ getAccademicSemesterFromDB ,
+  getSingleSemesterFromDB ,
+  updateAccademicSemesterFromDB
 
 }

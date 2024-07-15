@@ -59,11 +59,8 @@ const getSingleAccademicSemester =catchAsynce(async(req:Request , res:Response ,
 const updateAccademicSemester =catchAsynce(async(req:Request , res:Response , next)=>{
     
     const {semesterId} = req.params 
-    const {year, startMonth , endMonth}   = req.body
 
-    const updateField ={year, startMonth , endMonth}
-
-   const result = await AccademicSemesterServices.updateAccademicSemesterFromDB(semesterId ,updateField  )
+   const result = await AccademicSemesterServices.updateAccademicSemesterFromDB(semesterId , req.body)
 
 
     sendResponse(res ,{

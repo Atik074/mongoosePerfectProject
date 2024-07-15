@@ -31,14 +31,15 @@ const getSingleSemesterFromDB = async(semesterId:string)=>{
 
 }
 
-const updateAccademicSemesterFromDB = async(semesterId:string , updateField:any)=>{
+const updateAccademicSemesterFromDB = async(id:string, payload:Partial<TAccademicSemester>)=>{
+
+    if(payload.name && payload.code && accademicSemesterNameCodeMapper[payload.name] !== payload.code){
+       
+        throw new Error('Invalid semester code')
+    }
 
     
-    const result = await AccademicSemester.updateMany({_id:semesterId},{
-        year:updateField.year,
-        startMonth:updateField.startMonth,
-        endMonth:updateField.endMonth,
-    })
+    const result = await AccademicSemester.findOneAndUpdate({_id:id}, payload , {new:true})
 
     return result ;
 }

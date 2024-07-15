@@ -14,6 +14,8 @@ export type UserName = {
 };
 
 export type TStudent = {
+
+  id:string 
   user: Types.ObjectId
   name: UserName;
   gender: 'male' | 'female';

@@ -33,9 +33,10 @@ const createStudentValidationSchema = z.object({
   body: z.object({
     password: z.string().max(20),
     student: z.object({
+      id:z.string(),
       name: UserNameValidateSchema,
       gender: z.enum(['male', 'female']),
-      dateOfBirth: z.date().optional(),
+      dateOfBirth: z.string().optional(),
       bloodGroup: z
         .enum(['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'])
         .optional(),

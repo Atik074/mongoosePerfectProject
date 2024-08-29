@@ -14,7 +14,7 @@ const createAcademicDepartment =catchAsynce(async(req:Request,res:Response)=>{
     sendResponse(res , {
         statusCode:httpStatus.OK ,
         success:true ,
-        message:'Academic faculty is created successfully' ,
+        message:'Academic department is created successfully' ,
         data:result
     })
 
@@ -27,7 +27,7 @@ const createAcademicDepartment =catchAsynce(async(req:Request,res:Response)=>{
     sendResponse(res , {
         statusCode:httpStatus.OK ,
         success:true ,
-        message:'All  academic faculty is fouund' ,
+        message:'All  academic department is found' ,
         data:result
     })
 
@@ -37,14 +37,14 @@ const createAcademicDepartment =catchAsynce(async(req:Request,res:Response)=>{
 
   const getSingleAcademicDepartment = catchAsynce(async(req:Request , res:Response)=>{
   
-    const {facultyId} =req.params 
+    const {departmentId} =req.params 
 
-    const result = await AcademicDepartmentServices. getSingleAcademicDepartmentFromDB(facultyId)
+    const result = await AcademicDepartmentServices. getSingleAcademicDepartmentFromDB(departmentId)
 
     sendResponse(res , {
         statusCode:httpStatus.OK ,
         success:true ,
-        message:'single academic faulty is found successfully' ,
+        message:'single academic department is found successfully' ,
         data:result 
     })
 
@@ -55,16 +55,16 @@ const createAcademicDepartment =catchAsynce(async(req:Request,res:Response)=>{
 
   const udapteAcademicDepartment = catchAsynce(async(req:Request , res:Response)=>{
   
-    const {facultyId} =req.params 
+    const {departmentId} =req.params 
 
-    const result = await AcademicDepartmentServices.updateAcademicDepartmentFromDB(facultyId,req.body)
+    const result = await AcademicDepartmentServices.updateAcademicDepartmentFromDB(departmentId,req.body)
 
    
 
     sendResponse(res , {
         statusCode:httpStatus.OK ,
         success:true ,
-        message:'academic faculty is updated successfully' ,
+        message:'academic department is updated successfully' ,
         data:result 
     })
 
@@ -75,7 +75,7 @@ const createAcademicDepartment =catchAsynce(async(req:Request,res:Response)=>{
 
 
 
-export const AcademicFacultyControllers = {
+export const AcademicDepartmentControllers = {
   createAcademicDepartment ,
   getAllAcademicDepartments ,
    getSingleAcademicDepartment ,
